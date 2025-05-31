@@ -1,5 +1,6 @@
 import time
 
+tries = 3
 
 try:
     f = open("datos.txt", "x")
@@ -7,6 +8,7 @@ except FileExistsError:
     print("File already created, reading...")
 
 def login():
+    global tries
     username_input = input("User: ")
     password_input = input("Password: ")
 
@@ -20,10 +22,18 @@ def login():
         if username_input == user and password_input == password:
             print("Login successful!")
             return
+    
+
+    if tries == 1:
+        print("You have alredy tried too many times, try again later.")
+        return
 
     print("Incorrect username or password.")
+    tries -= 1
+    print(f"You've got: {tries} tries left.")
     time.sleep(1)
     login()
+
 
 
 def create_account():
@@ -54,9 +64,3 @@ with open("datos.txt", "r") as f:
     else:
         login()
 
-
-
-
-
-
-# this comment is just for trying the connection between github and vscode
