@@ -28,24 +28,26 @@ def login():
     with open("datos.txt", "r") as f:
         lines = f.readlines()
 
+    # Pretty simple, if you ran out of tries then either you are stupid or idk man.
+    if tries == 1:
+        print("You have alredy tried too many times, try again later.")
+        return
+
     for i in range(0, len(lines), 2):
         user = lines[i].strip()
         password = lines[i + 1].strip()
         if username_input == user and password_input == password:
             print("Login successful!")
             return
-    
-# Pretty simple, if you ran out of tries then either you are stupid or idk man.
-    if tries == 1:
-        print("You have alredy tried too many times, try again later.")
-        return
+        else:
+            # Every time you get either the username or password wrong it removes a chance and tells you how many you got left. And then recalls the function "login"
+            print("Incorrect username or password.")
+            tries -= 1
+            print(f"You've got: {tries} tries left.")
+            time.sleep(1)
+            login()
 
-# Every time you get either the username or password wrong it removes a chance and tells you how many you got left. And then recalls the function "login"
-    print("Incorrect username or password.")
-    tries -= 1
-    print(f"You've got: {tries} tries left.")
-    time.sleep(1)
-    login()
+
 
 
 # Another function! (I'm liking these) So we can reuse the code for "creating an account" every time we want, spoiler: in a few lines.
